@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}CodeWars Progress{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <h2>CodeWars Class Progress</h2>
+    <p>Live progress tracking of all students from the CodeWars API. Profiles are sorted by honor.</p>
+</section>
+
+<div class="codewars-grid">
+    {% for profile in profiles %}
+    <div class="codewars-card">
+        {% if profile.error %}
+        <div class="profile-header">
+            <h3>{{ profile.student_name }}</h3>
+            <span class="username">@{{ profile.username }}</span>
+        </div>
+        <p class="error-message">Could not load profile. {{ profile.error }}</p>
+        {% else %}
+        <div class="profile-header">
+            <h3>{{ profile.student_name }}</h3>
+            <span class="username">@{{ profile.username }}</span>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-value">{{ profile.honor }}</span>
+                <span class="stat-label">Honor</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{ profile.ranks.overall.name }}</span>
+                <span class="stat-label">Rank</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{ profile.codeChallenges.totalCompleted }}</span>
+                <span class="stat-label">Completed Kata</span>
+            </div>
+        </div>
+        <a href="https://www.codewars.com/users/{{ profile.username }}" target="_blank" class="btn">View Full Profile</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
