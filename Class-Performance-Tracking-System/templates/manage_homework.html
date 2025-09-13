@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Manage Homework{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <h2 id="form-title">Post New Homework</h2>
+    <form id="homeworkForm">
+        <input type="hidden" id="homeworkId" value="">
+        <div class="form-row">
+            <label for="hwSubject">Subject:</label>
+            <select id="hwSubject" required></select>
+            <label for="hwDueDate">Due Date:</label>
+            <input type="date" id="hwDueDate" required />
+        </div>
+        <div class="form-row">
+            <label for="hwDescription">Description:</label>
+            <textarea id="hwDescription" rows="3" style="width:100%;" required></textarea>
+        </div>
+        <button type="submit" id="submitBtn" class="btn">Save Homework</button>
+        <button type="button" id="cancelBtn" class="btn btn-secondary" style="display:none;">Cancel Edit</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h2>Posted Assignments</h2>
+    <table class="table" id="homeworkTable">
+        <thead>
+            <tr>
+                <th>Posted</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hw in homeworks %}
+            <tr data-homework-id="{{ hw.id }}">
+                <td>{{ hw.posted_date }}</td>
+                <td data-subject-id="{{ hw.subject_id }}">{{ hw.subject }}</td>
+                <td>{{ hw.description }}</td>
+                <td>{{ hw.due_date }}</td>
+                <td>
+                    <button class="btn btn-edit">Edit</button>
+                    <button class="btn btn-delete">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
