@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Homework Menu{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <div class="overlay">
+    <h1>Homework Hub</h1>
+    <div class="cards">
+      <a class="card" href="{{ url_for('manage_homework') }}">📊 Manage & Grade Homework</a>
+      <a class="card" href="{{ url_for('homework_status') }}">📝 My Homework Status</a>
+      <a class="card" href="{{ url_for('homework_calendar') }}">🗓️ Calendar View</a>
+      <a class="card" href="{{ url_for('exercism') }}">💪 Exercism Progress</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

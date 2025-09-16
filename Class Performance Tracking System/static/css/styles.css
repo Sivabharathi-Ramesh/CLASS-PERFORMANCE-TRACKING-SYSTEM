@@ -1,0 +1,152 @@
+:root {
+    --green: #4CAF50;
+    --green-dark: #388E3C;
+    --blue: #007bff;
+    --blue-dark: #0056b3;
+    --yellow: #FFC107;
+    --yellow-dark: #e0a800;
+    --text: #050505;
+    --muted: #6c757d;
+    --card-bg: rgba(21, 21, 22, 0.8);
+    --border-color: #dee2e6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background-color: #f8f9fa;
+}
+
+main { padding: 20px; }
+
+/* Header */
+.site-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--border-color);
+}
+.header-left { display: flex; gap: 16px; align-items: center; }
+.logo { height: 54px; }
+.titles h2, .titles h3, .titles h4 { margin: 0; line-height: 1.2; }
+.inst { font-weight: 700; color: #0056b3; }
+.dept, .sem { color: var(--muted); }
+
+.back-link {
+    text-decoration: none; font-weight: bold; color: var(--text); padding: 8px 14px;
+    border: 1px solid var(--border-color); border-radius: 10px; transition: background-color 0.2s ease;
+}
+.back-link:hover { background-color: #f1f1f1; }
+
+/* Hero Menus */
+.home-hero {
+    min-height: calc(100vh - 90px);
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; justify-content: center;
+}
+.home-hero .overlay {
+    background: transparent;
+    padding: 40px; border-radius: 20px;
+    text-align: center;
+    max-width: 90%; box-sizing: border-box;
+}
+.home-hero h1 { 
+    font-size: 2.5em; 
+    margin-bottom: 30px; 
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+body:not([data-page="home"]) .home-hero .overlay {
+    background: var(--card-bg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(4px);
+}
+
+body[data-page="home"] .home-hero { background-image: url('../img/main_background.jpg'); }
+body[data-page="attendance_home"] .home-hero,
+body[data-page="homework_home"] .home-hero { background-image: url('../img/background2.jpg'); }
+
+.cards { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.cards.vertical { flex-direction: column; min-width: 300px; }
+
+.card {
+    display: block; text-decoration: none;
+    padding: 20px 24px; border-radius: 18px; font-weight: 600;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); transition: transform 0.2s ease;
+}
+.card:hover { transform: translateY(-4px); }
+
+/* Glassmorphism Buttons for Main Menu */
+body[data-page="home"] .card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    font-size: 1.6em; /* --- UPDATED: Increased from 1.4em --- */
+}
+body[data-page="home"] .card:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Specific Text Colors for Glassmorphism Buttons */
+body[data-page="home"] .card.attendance { color: #d4ffde; text-shadow: 1px 1px 2px #267029; }
+body[data-page="home"] .card.homework { color: #fff6d4; text-shadow: 1px 1px 2px #9e7d00; }
+body[data-page="home"] .card.project { color: #d4faff; text-shadow: 1px 1px 2px #006e7a; }
+body[data-page="home"] .card.communication { color: #ffd4e5; text-shadow: 1px 1px 2px #910f3c; }
+
+
+/* General Components */
+.panel {
+    margin: 20px auto; max-width: 1100px; background: #fff; padding: 25px;
+    border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+.form-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 16px; }
+.form-row label { font-weight: 600; }
+.table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.table th, .table td { border: 1px solid var(--border-color); padding: 12px; text-align: center; vertical-align: middle; }
+.table thead th { background-color: #f8f9fa; }
+.btn {
+    appearance: none; border: none; border-radius: 12px; padding: 10px 18px;
+    color: #fff; font-weight: 700; cursor: pointer; transition: background-color 0.2s ease;
+}
+.btn.disabled { background-color: #9e9e9e !important; cursor: not-allowed; }
+.btn-secondary { background-color: var(--muted); }
+.btn-delete { background-color: #dc3545; }
+.btn-edit { background-color: #6f42c1; }
+.btn-link { background:none; border:none; color: var(--blue); cursor:pointer; text-decoration:underline; padding:0; font-size: 0.9em; }
+
+/* Solid Color Themes for Sub-Pages */
+.attendance-section .card, .attendance-section .btn { background-color: var(--green); color: #fff; }
+.attendance-section .card:hover, .attendance-section .btn:hover:not(.disabled) { background-color: var(--green-dark); }
+.attendance-section .panel h2 { color: var(--green-dark); }
+.attendance-section .back-link { border-color: var(--green); }
+
+.homework-section .card, .homework-section .btn { background-color: var(--blue); color: #fff; }
+.homework-section .card:hover, .homework-section .btn:hover:not(.disabled) { background-color: var(--blue-dark); }
+.homework-section .panel h2 { color: var(--blue-dark); }
+.homework-section .back-link { border-color: var(--blue); }
+
+/* Tab Styles */
+.tabs { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 20px; }
+.tab-button {
+    padding: 10px 20px; cursor: pointer; border: none; background-color: transparent;
+    font-size: 1.1em; font-weight: 600; color: var(--muted);
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+}
+.tab-button.active { color: var(--blue-dark); border-bottom-color: var(--blue-dark); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Specific Component Styles */
+.table td:last-child { display: flex; flex-wrap: wrap; gap: 8px; }
+.homework-item { border-left: 5px solid var(--muted); border-radius: 5px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.homework-item.completed { border-left-color: var(--green); }
+.exercism-grid, .codewars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.exercism-card, .codewars-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
+.doubt-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; }
+.doubt-card .answer { background-color: #f8f9fa; border-top: 1px dashed var(--border-color); margin-top: 10px; padding: 10px; }
+.doubt-meta { font-size: 0.8em; color: var(--muted); margin-top: 10px; }

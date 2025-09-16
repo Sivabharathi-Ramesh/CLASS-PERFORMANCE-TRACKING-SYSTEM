@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Individual Report{% endblock %}
+{% block body_class %}attendance-section{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>Individual Report</h2>
+  <div class="form-row">
+    <label for="searchQuery">Name or Roll No:</label>
+    <input type="text" id="searchQuery" placeholder="name or roll No" />
+    <label for="subjectSelect">Subject:</label>
+    <select id="subjectSelect"></select>
+    <label for="dateType">Filter:</label>
+    <select id="dateType">
+      <option value="">All Time</option>
+      <option value="date">Specific Date</option>
+      <option value="month">Month</option>
+      <option value="year">Year</option>
+    </select>
+    
+    <span id="dateInputContainer" style="display:none;"><input type="date" id="dateInput" /></span>
+    <span id="monthYearInputContainer" style="display:none;">
+        <input type="number" id="monthInput" placeholder="Month (1-12)" min="1" max="12" />
+        <input type="number" id="yearInputMonth" placeholder="Year" min="2020" />
+    </span>
+    <span id="yearInputContainer" style="display:none;"><input type="number" id="yearInput" placeholder="Year" min="2020" /></span>
+
+    <button id="searchBtn" class="btn">Search</button>
+  </div>
+  <div id="studentInfo" style="margin-top: 20px;"></div>
+  <div id="studentReport"></div>
+</section>
+{% endblock %}

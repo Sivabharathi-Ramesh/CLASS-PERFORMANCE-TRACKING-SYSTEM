@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Manage Homework{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="tabs">
+        <button class="tab-button active" data-target="post-homework">Post/Edit Homework</button>
+        <button class="tab-button" data-target="gradebook">Gradebook & Assignments</button>
+    </div>
+
+    <div id="post-homework" class="tab-content active">
+        <h2 id="form-title">Post New Homework</h2>
+        <form id="homeworkForm">
+            <input type="hidden" id="homeworkId" value="">
+            <div class="form-row">
+                <label for="hwTitle">Title:</label>
+                <input type="text" id="hwTitle" style="flex-grow: 1;" required>
+                <label for="hwSubject">Subject:</label>
+                <select id="hwSubject" required></select>
+                <label for="hwDueDate">Due Date:</label>
+                <input type="date" id="hwDueDate" required />
+            </div>
+            <div class="form-row">
+                <label for="hwDescription">Description:</label>
+                <textarea id="hwDescription" rows="3" style="width:100%;" required></textarea>
+            </div>
+            <button type="submit" id="submitBtn" class="btn">Save Homework</button>
+            <button type="button" id="cancelBtn" class="btn btn-secondary" style="display:none;">Cancel Edit</button>
+        </form>
+    </div>
+
+    <div id="gradebook" class="tab-content">
+        <h2>Gradebook & Assignments</h2>
+        <div class="form-row">
+            <label for="subjectFilter">Filter by Subject:</label>
+            <select id="subjectFilter"></select>
+            <label for="dateFilter">Filter by Post Date:</label>
+            <input type="date" id="dateFilter">
+            <button id="filterBtn" class="btn">Filter</button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="table" id="homeworkTable">
+                <thead>
+                    <tr>
+                        <th>Assignment Details</th>
+                        {% for student in students %}
+                        <th>{{ student.name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hw in homeworks %}
+                    <tr data-homework-id="{{ hw.id }}">
+                        <td data-subject-id="{{ hw.subject_id }}" data-description="{{ hw.description }}" data-due-date="{{ hw.due_date }}">
+                            <strong class="hw-title">{{ hw.title }}</strong>
+                            <div style="font-size: 0.9em; color: var(--muted);">
+                                <span>Due: {{ hw.due_date }}</span> | <span>Posted: {{ hw.posted_date }}</span>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a href="{{ url_for('homework_doubts', homework_id=hw.id) }}">View Doubts</a>
+                                <button class="btn btn-edit" style="font-size:0.8em; padding: 4px 8px;">Edit</button>
+                                <button class="btn btn-delete" style="font-size:0.8em; padding: 4px 8px;">Delete</button>
+                            </div>
+                        </td>
+                        {% for student in students %}
+                        <td>
+                            <input type="number" class="grade-input" placeholder="N/A"
+                                   data-homework-id="{{ hw.id }}" data-student-id="{{ student.id }}"
+                                   value="{{ submissions.get(hw.id, {}).get(student.id, '') }}">
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="{{ students|length + 1 }}" style="text-align: center;">No assignments match filter.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

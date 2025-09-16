@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Homework Doubts{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+{% block content %}
+<section class="panel">
+    <h2>Doubts for: {{ homework.title }}</h2>
+    <p>Students can ask questions here, and teachers can provide answers.</p>
+</section>
+<section class="panel">
+    <h3>Ask a Question</h3>
+    <form id="doubt-form" data-homework-id="{{ homework.id }}">
+        <div class="form-row">
+            <label for="studentSelector">Posting as:</label>
+            <select id="studentSelector" required>
+                <option value="" disabled selected>-- Select a Student --</option>
+                {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <textarea rows="4" placeholder="Type your question here..." required></textarea>
+        <button type="submit" class="btn" style="margin-top: 10px;">Post Doubt</button>
+    </form>
+</section>
+<section class="panel">
+    <h3>Q&A Section</h3>
+    <div class="doubts-container" id="doubts-list">
+        {% for doubt in doubts %}
+        <div class="doubt-card" data-doubt-id="{{ doubt.id }}">
+            <p class="question">Q: {{ doubt.question }}</p>
+            <form class="edit-doubt-form" style="display: none;" data-doubt-id="{{ doubt.id }}">
+                <textarea rows="3">{{ doubt.question }}</textarea>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn">Save Changes</button>
+                    <button type="button" class="btn btn-secondary btn-cancel-edit">Cancel</button>
+                </div>
+            </form>
+            <div class="doubt-meta">
+                <span>Asked by {{ doubt.student_name }} on {{ doubt.asked_date }}</span>
+                <div class="doubt-actions">
+                    <button class="btn-link btn-edit-doubt">Edit</button>
+                    <button class="btn-link btn-delete-doubt">Delete</button>
+                </div>
+            </div>
+            {% if doubt.answer %}
+            <div class="answer">
+                <p><strong>A:</strong> {{ doubt.answer }}</p>
+            </div>
+            {% else %}
+            <form class="answer-form" data-doubt-id="{{ doubt.id }}">
+                <textarea rows="3" placeholder="Teacher: type your answer here..." required></textarea>
+                <button type="submit" class="btn" style="margin-top: 10px;">Post Answer</button>
+            </form>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>No doubts have been asked for this assignment yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

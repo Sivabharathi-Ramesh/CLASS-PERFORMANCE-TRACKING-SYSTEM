@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}View Attendance{% endblock %}
+{% block body_class %}attendance-section{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>View Class Attendance</h2>
+  <div class="form-row">
+    <label for="viewSubject">Subject:</label>
+    <select id="viewSubject"></select>
+
+    <label for="filterType">Filter By:</label>
+    <select id="filterType">
+      <option value="day" selected>Specific Day</option>
+      <option value="month">Month</option>
+      <option value="year">Year</option>
+    </select>
+
+    <span id="dayFilterControls">
+      <input type="date" id="viewDate" />
+    </span>
+    <span id="monthFilterControls" style="display:none;">
+      <input type="number" id="viewYearMonth" placeholder="Year" min="2020" />
+      <select id="viewMonth">
+        <option value="01">January</option><option value="02">February</option><option value="03">March</option>
+        <option value="04">April</option><option value="05">May</option><option value="06">June</option>
+        <option value="07">July</option><option value="08">August</option><option value="09">September</option>
+        <option value="10">October</option><option value="11">November</option><option value="12">December</option>
+      </select>
+    </span>
+    <span id="yearFilterControls" style="display:none;">
+      <input type="number" id="viewYear" placeholder="Year" min="2020" />
+    </span>
+
+    <button id="showRecords" class="btn">Show Records</button>
+  </div>
+  <div id="recordsArea"></div>
+</section>
+{% endblock %}

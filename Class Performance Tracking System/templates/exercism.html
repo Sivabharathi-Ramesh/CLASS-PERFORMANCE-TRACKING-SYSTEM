@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Exercism Progress{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+{% block content %}
+<section class="panel">
+    <h2>Exercism Progress Tracker</h2>
+    <p>Public profiles of all students on Exercism.org. Click a name to view their profile.</p>
+</section>
+<div class="exercism-grid">
+    {% for student in students %}
+    <div class="exercism-card">
+        <h3>{{ student.name }}</h3>
+        <p>@{{ student.exercism_username }}</p>
+        <a href="https://exercism.org/profiles/{{ student.exercism_username }}" target="_blank" class="btn">View Profile</a>
+    </div>
+    {% else %}
+    <p>No students with Exercism profiles have been added yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Main Menu{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <div class="overlay">
+    <h1>Class Performance Tracking</h1>
+    <div class="cards vertical">
+      <a class="card attendance" href="{{ url_for('attendance_home') }}">📊 Attendance Tracking</a>
+      <a class="card homework" href="{{ url_for('homework_home') }}">📝 Homework Hub</a>
+      <a class="card project" href="#">🚀 Project Portal</a>
+      <a class="card communication" href="#">💬 Communication Center</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

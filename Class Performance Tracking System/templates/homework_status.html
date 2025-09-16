@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}My Homework Status{% endblock %}
+{% block body_class %}homework-section{% endblock %}
+{% block content %}
+<section class="panel">
+    <h2>My Homework Status</h2>
+    <p>Check the boxes for assignments you have completed. (Simulating as one student)</p>
+</section>
+<div class="homework-status-list">
+    {% for hw in homeworks %}
+    <div class="homework-item {% if hw.student_status == 'Completed' %}completed{% endif %}" data-homework-id="{{ hw.id }}">
+        <div class="homework-details">
+            <span class="hw-subject">{{ hw.subject }}</span>
+            <p class="hw-description">{{ hw.title }}: {{ hw.description }}</p>
+            <span class="hw-due-date">Due: {{ hw.due_date }}</span>
+        </div>
+        <div class="student-toggle">
+            <input type="checkbox" class="status-toggle" id="toggle-{{ hw.id }}" {% if hw.student_status == 'Completed' %}checked{% endif %}>
+            <label for="toggle-{{ hw.id }}">Completed</label>
+        </div>
+    </div>
+    {% else %}
+    <section class="panel"><p>No homework has been assigned yet.</p></section>
+    {% endfor %}
+</div>
+{% endblock %}
